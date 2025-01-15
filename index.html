@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="recipeApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Finder</title>
+
+    <link rel="stylesheet" href="app/styles/styles.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+
+    <script src="app/app.js"></script>
+    <script src="app/controllers/RecipeController.js"></script>
+    <script src="app/services/RecipeService.js"></script>
+    <script src="app/controllers/RecipeDetailController.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-sanitize.min.js"></script>
+    
+
+</head>
+<body>
+    <div class="container" ng-controller="RecipeController">
+        <header>
+            <h1>Recipe Finder</h1>
+            <p>Discover your next favorite recipe!</p>
+        </header>
+
+        <div class="search-section">
+            <input type="text" ng-model="searchQuery" placeholder="Search for recipes..." class="search-input" />
+            <button ng-click="fetchRecipes()" class="search-btn">Find Recipes</button>
+            <button ng-click="clearSearch()" class="clear-btn">Clear</button>
+        </div>
+
+        <div ng-if="errorMessage" class="error-message">
+            {{ errorMessage }}
+        </div>
+
+        <div ng-if="isLoading" class="loading">
+            <p>Loading recipes...</p>
+        </div>
+
+        <div class="recipes" ng-if="recipes.length > 0">
+            <div class="recipe-item" ng-repeat="recipe in recipes">
+                <img ng-src="{{recipe.image}}" alt="{{recipe.title}}" class="recipe-image" />
+                <h2 class="recipe-title">{{recipe.title}}</h2>
+                <p class="recipe-instructions">
+                    {{recipe.instructions || 'No instructions available'}}
+                </p>
+            </div>
+        </div>
+
+        <div ng-if="!recipes.length && !isLoading && !errorMessage" class="no-recipes">
+            <p>No recipes found. Try searching for something else!</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Recipe Finder. All rights reserved.</p>
+    </footer>
+</body>
+</html>

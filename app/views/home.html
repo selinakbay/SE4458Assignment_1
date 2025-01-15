@@ -1,0 +1,51 @@
+<div class="home-container">
+    <h2>Recipe Finder</h2>
+
+    <div class="search-section">
+        <input 
+            type="text" 
+            ng-model="searchQuery" 
+            class="search-input" 
+            placeholder="Search for recipes" 
+            ng-keypress="$event.keyCode === 13 && fetchRecipes()"
+        />
+        <button ng-click="fetchRecipes()" class="search-btn">Search</button>
+        <button ng-click="clearSearch()" class="clear-btn">Clear</button>
+    </div>
+
+    <div ng-if="isLoading" class="loading">
+        Loading recipes...
+    </div>
+
+    <div ng-if="recipes.length > 0 && !isLoading" class="recipes">
+        <div ng-repeat="recipe in recipes" class="recipe-item">
+            <a ng-href="#/recipe/{{ recipe.id }}">
+                <img 
+                    ng-src="{{ recipe.image || 'app/styles/placeholder.jpg' }}" 
+                    alt="{{ recipe.title }}" 
+                    class="recipe-image" 
+                    onerror="this.src='app/styles/placeholder.jpg'"
+                />
+                <h3 class="recipe-title">{{ recipe.title }}</h3>
+            </a>
+            <p class="recipe-instructions" ng-bind-html="recipe.instructions || 'No instructions available'"></p>
+        </div>
+    </div>
+
+    <div ng-repeat="recipe in recipes" class="recipe-item">
+        <a ng-href="#/recipe/{{ recipe.id }}">
+            <img 
+                ng-src="{{ recipe.image || 'app/styles/placeholder.jpg' }}" 
+                alt="{{ recipe.title }}" 
+                class="recipe-image" 
+                onerror="this.src='app/styles/placeholder.jpg'"
+            />
+            <h4 class="recipe-title">{{ recipe.title }}</h4>
+        </a>
+        <p class="recipe-instructions" ng-bind-html="recipe.instructions || 'No instructions available'"></p>
+    </div>
+    
+    <div ng-if="recipes.length === 0 && !isLoading" class="no-recipes">
+        <p>No recipes found. Try a different search.</p>
+    </div>
+</div>

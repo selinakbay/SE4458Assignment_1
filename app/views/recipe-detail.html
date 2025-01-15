@@ -1,0 +1,9 @@
+<div class="recipe-detail-container">
+    <h2>{{ recipe.title }}</h2>
+    <img ng-src="{{ recipe.image }}" alt="{{ recipe.title }}" class="recipe-image" />
+    <p><strong>Instructions:</strong></p>
+    <p ng-bind-html="recipe.instructions || 'No instructions available'"></p>
+    <p><strong>Ready in:</strong> {{ recipe.readyInMinutes }} minutes</p>
+    <p><strong>Servings:</strong> {{ recipe.servings }}</p>
+    <a href="#/" class="back-btn">Go Back</a>
+</div>
